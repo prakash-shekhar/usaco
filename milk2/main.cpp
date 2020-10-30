@@ -49,4 +49,5 @@ int main() {
     }
     fout << maxmilk << " " << maxwait << endl;
     return 0;
+    //this comment is to check if git is working
 }
