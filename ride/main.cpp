@@ -1,39 +1,46 @@
 /*
 ID: prakash35
-PROG: ride
-LANG: C++                 
+LANG: C++14
+TASK: ride
 */
-#include <cstdio>
-#include <iostream>
-#include <fstream>
-#include <ostream>
-#include <string>
 
+/*
+NAME            : Prakash Shekhar
+GROUP           : Discrete Math
+LAST MODIFIED   : 11 September 2022
+PROBLEM ID      : ride
+DESCRIPTION     : Check if the product of the ascii values in two strings mod 47 is the same
+PEOPLE I HELPED : None
+SOURCES/HELPERS : None
+*/
+
+
+#include <bits/stdc++.h>
 using namespace std;
 
-int main() {
-    //initialize variables
-    ofstream fout ("ride.out");
-    ifstream fin ("ride.in");
-    string a, b;
-    int prod1=1;
-    int prod2=1;
-
-    //read strings from files
-    fin >> a;
-    fin >> b;
-
-    for (int i =0; i<a.length(); i++) {
-        prod1 = prod1 * (int(a[i]) - 64) % 47;
-    }
-    for (int i =0; i<b.length(); i++) {
-        prod2 = prod2 * (int(b[i]) - 64) % 47;
-    }
-    if(prod1==prod2){
-        fout<<"GO"<<endl;
-    }
-    else {
-        fout<<"STAY"<<endl;
-    }
-    return 0;
+int main(){
+	//read input
+	ifstream cin("ride.in");
+	ofstream cout("ride.out");
+	string s1, s2;
+	cin >> s1 >> s2;
+	// keep track of products
+	int prod1 = 1;
+	int prod2 = 1;
+	//iterate through strings
+	for(int i = 0;i<s1.size();i++){
+		// fiddle with ascii and then multiply to running product
+		prod1 *= (int) s1[i] -'A'+1;
+	}
+	for(int i = 0;i<s2.size();i++){
+		// fiddle with ascii and then multiply to running product
+		prod2 *= (int) s2[i] -'A'+1;
+	}
+	// print go if modulus is same
+	if((prod1 % 47) == (prod2 %47)){
+		cout << "GO" << endl;
+	}
+	else{
+		cout <<"STAY" << endl;
+	}
 }
