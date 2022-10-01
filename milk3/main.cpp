@@ -3,6 +3,9 @@ ID: prakash35
 LANG: C++11
 TASK: milk3
 */
+
+
+
 #include <bits/stdc++.h>
 using namespace std;
 
@@ -16,14 +19,17 @@ vector<int> pour(int a, int b, int c, int action)
     if (c != 0)
     {
         if (action == 1)
-        { // c -> a
+        {
+            // c -> a
             if (c > (acapacity - a))
-            { // fill up receiving
+            {
+                // fill up receiving
                 c = c - (acapacity - a);
                 a = acapacity;
             }
             else
-            { // empty giving
+            {
+                // empty giving
                 a = a + c;
                 c = 0;
             }
@@ -36,7 +42,8 @@ vector<int> pour(int a, int b, int c, int action)
                 b = bcapacity;
             }
             else
-            { // empty giving
+            {
+                // empty giving
                 b = b + c;
                 c = 0;
             }
