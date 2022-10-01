@@ -1,53 +1,83 @@
 /*
 ID: prakash35
-TASK: test
-LANG: C++                 
+TASK: milk2
+LANG: C++
 */
-#include <cstdio>
-#include <iostream>
-#include <fstream>
-#include <string>
+
+/*
+NAME            : Prakash Shekhar
+GROUP           : Discrete Math
+LAST MODIFIED   : 27 September 2022
+PROBLEM ID      : milk2
+DESCRIPTION     : finds the longest continous milking time for cows and the longest idle time in between
+PEOPLE I HELPED : None
+SOURCES/HELPERS : None
+*/
+
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int main() {
-    //initialize
-    ofstream fout ("milk2.out");
-    ifstream fin ("milk2.in");
+// struct for time interval
+struct timemilk{
+    int a, b;
+};
+
+// sort by start times
+bool cmp(const timemilk& x, const timemilk& y) { return x.a < y.a; }
+
+
+int main()
+{
+    // initialize
+    ofstream cout ("milk2.out");
+    ifstream cin ("milk2.in");
+    // number of farmers
     int num=0;
-    fin >> num;
-    int maxmilk=0;
-    int maxwait=0;
+    cin >> num;
 
-    //create array
-    int arr[num][2];
-    for(int i = 0; i< num; i++){
+    // array of times for milking
+    vector<timemilk> arr;
+    for(int i = 0; i< num; i++)
+    {
+        // starting(a) and ending(b) times
         int a, b;
-        fin >> a >> b;
-        arr[i][0]=a;
-        arr[i][1]=b;
-    }
-    //continuous milking
-    for (int i =0; i< num; i++) {
-        int diff=arr[i][1]-arr[i][0];
-        int wait = 0;
-        if ((i+1)<num){
-            wait=arr[i+1][0]-arr[i][1];
-        }
-        for (int j=i+1; j<num; j++) {
-            if (arr[j][0]<arr[j-1][1]) {
-                diff = arr[j][1]-arr[i][0];
-            }
-        }
-        if(diff>maxmilk){
-            maxmilk=diff;
-        }
-        if (wait>maxwait) {
-            maxwait=wait;
-        }
+        cin >> a >> b;
+        timemilk t = {a, b};
+        arr.push_back(t);
 
     }
-    fout << maxmilk << " " << maxwait << endl;
+    // sort by start times
+    sort(arr.begin(), arr.end(), cmp);
+    // set current start and current end
+    int currstart = arr[0].a;
+    int currend = arr[0].b;
+    // the maximum consecutive time milking
+    int maxmilk = 0;
+    // maximum time in between milking
+    int maxwait = 0;
+    for(int i = 0;i<num;i++){
+        // cout << arr[i].a << " " << arr[i].b << endl;
+
+        // if the start time for current overlaps with currend
+        if(arr[i].a <= currend && arr[i].b >= currend)
+        {
+            // update currend
+            currend = arr[i].b;
+        }
+        else if(arr[i].a > currend)
+        {
+            // update maxwait
+            maxwait = max(maxwait, arr[i].a-currend);
+            // set new starts and ends
+            currstart = arr[i].a;
+            currend = arr[i].b;
+        }
+        // update maxmilk
+        maxmilk = max(maxmilk, currend-currstart);
+        // cout << "start: " << currstart << " end: " << currend << endl;
+    }
+    // output answer
+    cout << maxmilk << " " << maxwait << endl;
     return 0;
-    //this comment is to check if git is working
 }

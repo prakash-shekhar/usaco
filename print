@@ -1,0 +1,4 @@
+#!/bin/bash
+cd $1
+render50 -o $1.pdf main.cpp -s "A4 portrait"
+cd ..

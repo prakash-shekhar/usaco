@@ -1,12 +1,20 @@
 /*
 ID: prakash35
 TASK: gift1
-LANG: C++                 
+LANG: C++
 */
-#include <cstdio>
-#include <iostream>
-#include <fstream>
-#include <string>
+
+/*
+NAME            : Prakash Shekhar
+GROUP           : Discrete Math
+LAST MODIFIED   : 27 September 2022
+PROBLEM ID      : gift1
+DESCRIPTION     : Given a list of names and sequential transfers of money, determine the amount transfered by each member in the group
+PEOPLE I HELPED : None
+SOURCES/HELPERS : None
+*/
+
+#include <bits/stdc++.h>
 
 using namespace std;
 
@@ -19,35 +27,42 @@ int findElem(string elem, string arr[], int len){
 		}
 		i++;
 	}
-    cout << i << " " << len << endl;
+    // cout << i << " " << len << endl;
     return i;
 }
 
 
 int main() {
     //initalize variable
-    ofstream fout ("gift1.out");
-    ifstream fin ("gift1.in");
+    ofstream cout ("gift1.out");
+    ifstream cin ("gift1.in");
     int numPeople;
     //read in amount of people
-    fin >> numPeople;
+    cin >> numPeople;
     //create parrallel arrays
     string people[numPeople];
     long int balance[numPeople];
+    // set array of values to 0
     for (int i = 0; i<numPeople; i++)
     {
         balance[i] = 0;
     }
-    //populate people list
+    // populate people list
     for(int i=0;i<numPeople;i++){
-        fin >> people[i];
+        cin >> people[i];
     }
-
-    while(fin){
-        string giver; 
+    // read until end of file
+    while(cin){
+        // read in current operation
+        string giver;
         int amount, receivers=0;
-        fin >> giver;
-        fin >> amount >> receivers;
+        cin >> giver;
+        // make sure to break if giver name is empty
+        if(giver == ""){
+            break;
+        }
+        cin >> amount >> receivers;
+        // calculate amount that each receiver will get
         int perperson;
         int remainder;
         if (receivers==0) {
@@ -58,18 +73,21 @@ int main() {
             perperson = amount / receivers;
             remainder = amount % receivers;
         }
-        balance[findElem(giver, people, numPeople)]-=amount;
-        balance[findElem(giver, people, numPeople)]+=remainder;
+        // adjust balance of the giver
+        int giverbal = distance(people, find(people, people+numPeople, giver));
+        balance[giverbal]-=amount;
+        balance[giverbal]+=remainder;
+        // adjust balance of the receivers
         for(int i=0; i< receivers; i++){
             string receiver;
-            fin >> receiver;
-            balance[findElem(receiver, people, numPeople)]+=perperson;
+            cin >> receiver;
+            int receiverbal = distance(people, find(people, people+numPeople, receiver));
+            balance[receiverbal]+=perperson;
         }
     }
-    int i = 0;
-    while(i< numPeople){
-        fout<< people[i] << " " <<balance[i]<<endl;
-        i++;
+    // output person and balance
+    for(int i = 0;i<numPeople;i++){
+        cout << people[i] << " " <<balance[i]<<endl;
     }
     return 0;
 }

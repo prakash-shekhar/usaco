@@ -1,17 +1,6 @@
-##include <bits/stdc++.h>
-#define FastIO ios_base::sync_with_stdio(0); cin.tie(0)
-#define FRO(a) for (int i = 0; i < a; i++)
-#define len(x) (int)(x).length()
+#include <bits/stdc++.h>
 
 using namespace std;
-
-void setIO(string fileName = ""){
-	FastIO;
-	if(len(fileName)){
-		freopen((fileName+".in").c_str(), "r", stdin);
-		freopen((fileName+".out").c_str(), "w", stdout);
-	}
-}
 
 ifstream fin ("checker.in");
 ofstream fout ("checker.out");

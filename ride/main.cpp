@@ -7,7 +7,7 @@ TASK: ride
 /*
 NAME            : Prakash Shekhar
 GROUP           : Discrete Math
-LAST MODIFIED   : 11 September 2022
+LAST MODIFIED   : 27 September 2022
 PROBLEM ID      : ride
 DESCRIPTION     : Check if the product of the ascii values in two strings mod 47 is the same
 PEOPLE I HELPED : None
